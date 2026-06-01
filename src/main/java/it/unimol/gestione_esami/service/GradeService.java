@@ -12,12 +12,14 @@ import it.unimol.gestione_esami.messaging.ExamEventPublisher;
 import it.unimol.gestione_esami.repository.ExamEnrollmentRepository;
 import it.unimol.gestione_esami.repository.ExamGradeRepository;
 import it.unimol.gestione_esami.repository.ExamRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Transactional
 @Service
 public class GradeService {
 
