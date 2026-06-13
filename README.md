@@ -14,14 +14,13 @@ Questo Microservizio è responsabile della gestione completa degli esami all'int
 ```
 Server: http://localhost:23110
 Swagger UI: http://localhost:23110/swagger-ui.html
-H2 Console: http://localhost:23110/h2-console
 ```
 
 ## Tech Stack
 
 - **Framework:** Spring Boot 3.5.x
 - **Message Broker:** RabbitMQ
-- **Database:** H2 (in-memory)
+- **Database:** PostgreSQL (Docker)
 - **API Documentation:** Swagger/OpenAPI 3.0
 - **Sicurezza:** JWT con RSA-2048 (Gestione Utenti e Ruoli)
 
@@ -38,11 +37,16 @@ H2 Console: http://localhost:23110/h2-console
 docker run -d -p 5672:5672 -p 15672:15672 rabbitmq:management
 ```
 
-**2. Avvia Gestione Utenti e Ruoli (Mauro Cavasinni) — porta 23109**
+**2. Avvia PostgreSQL con Docker:**
+```
+docker run -d --name postgres-esami -e POSTGRES_DB=esami_db -e POSTGRES_USER=esami_user -e POSTGRES_PASSWORD=esami_pass -p 5433:5432 postgres:16
+```
 
-**3. Avvia Gestione Esami — porta 23110**
+**3. Avvia Gestione Utenti e Ruoli (Mauro Cavasinni) — porta 23109**
 
-**4. Avvia unimol-stubs — porta 23200**
+**4. Avvia Gestione Esami — porta 23110**
+
+**5. Avvia unimol-stubs — porta 23200**
 
 ### Dashboard RabbitMQ
 ```

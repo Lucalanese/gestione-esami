@@ -19,7 +19,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/api-docs/**", "/swagger-ui.html", "/v3/api-docs/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/v1/exams").hasAuthority("ROLE_ADMINISTRATIVE")
+                        .requestMatchers(HttpMethod.POST, "/api/v1/exams").hasAnyAuthority("ROLE_ADMINISTRATIVE", "ROLE_PROFESSOR")
                         .requestMatchers(HttpMethod.PUT, "/api/v1/exams/**").hasAuthority("ROLE_ADMINISTRATIVE")
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/exams/**").hasAuthority("ROLE_ADMINISTRATIVE")
                         .requestMatchers(HttpMethod.GET, "/api/v1/exams/calendar").permitAll()
