@@ -38,6 +38,12 @@ public class EnrollmentController {
         return ResponseEntity.ok(enrollments);
     }
 
+    @GetMapping("/student/{studentId}")
+    public ResponseEntity<List<EnrollmentDTO>> getStudentsEnrollments(@PathVariable Long studentId) {
+        List<EnrollmentDTO> enrollments = enrollmentService.getStudentsEnrollments(studentId);
+        return ResponseEntity.ok(enrollments);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<EnrollmentDTO> getEnrollmentById(@PathVariable Long id) {
         EnrollmentDTO enrollment = enrollmentService.getEnrollmentById(id);
@@ -68,9 +74,5 @@ public class EnrollmentController {
         return ResponseEntity.ok(enrollments);
     }
 
-    @GetMapping("/student/{studentId}")
-    public ResponseEntity<List<EnrollmentDTO>> getStudentsEnrollments(@PathVariable Long studentId) {
-        List<EnrollmentDTO> enrollments = enrollmentService.getStudentsEnrollments(studentId);
-        return ResponseEntity.ok(enrollments);
-    }
+
 }

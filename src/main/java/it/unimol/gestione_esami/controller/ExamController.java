@@ -99,4 +99,10 @@ public class ExamController {
         return ResponseEntity.status(201).body(grade);
     }
 
+    @GetMapping("/{examId}/grades")
+    public ResponseEntity<List<GradeDTO>> getExamGrades(@PathVariable Long examId) {
+        List<GradeDTO> grades = gradeService.getExamGrades(examId);
+        return ResponseEntity.ok(grades);
+    }
+
 }
