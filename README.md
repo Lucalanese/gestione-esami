@@ -384,5 +384,8 @@ GET     /api/v1/grades/student/{studentId}
 - Controllo iscrizione doppia (409 Conflict)
 - Controllo limite massimo iscrizioni
 - Validazione voto nel range 0-30
+- Validazione courseId/professorId/classroomId (Valori validi > 0)
 - Blocco eliminazione esame con iscrizioni attive
+- Controllo ownership per cui gli studenti possono visualizzare e modificare solo le proprie risorse(voti, iscrizioni)
+- Gli studenti non possono eliminare voti
 - ID utente sempre estratto dal token JWT (mai dai parametri)
