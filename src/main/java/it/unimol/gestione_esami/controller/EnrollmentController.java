@@ -45,9 +45,13 @@ public class EnrollmentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EnrollmentDTO> getEnrollmentById(@PathVariable Long id) {
-        EnrollmentDTO enrollment = enrollmentService.getEnrollmentById(id);
+    public ResponseEntity<EnrollmentDTO> getEnrollmentById(@PathVariable Long id, Authentication authentication) {
+        Long requestId = Long.parseLong(authentication.getName());
+        boolean isStudent = authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_STUDENT"));
+        EnrollmentDTO enrollment = enrollmentService.getEnrollmentById(id, requestId, isStudent);
         return ResponseEntity.ok(enrollment);
+
     }
 
     @DeleteMapping("/{id}")

@@ -21,9 +21,13 @@ public class GradeController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<GradeDTO> getGradeById(@PathVariable Long id) {
-        GradeDTO grade = gradeService.getGradeById(id);
+    public ResponseEntity<GradeDTO> getGradeById(@PathVariable Long id, Authentication authentication) {
+        Long requesterId = Long.parseLong(authentication.getName());
+        boolean isStudent = authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_STUDENT"));
+        GradeDTO grade = gradeService.getGradeById(id, requesterId, isStudent);
         return ResponseEntity.ok(grade);
+
     }
 
     @PutMapping("/{id}")

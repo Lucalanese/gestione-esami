@@ -66,10 +66,15 @@ public class EnrollmentService {
 
     }
 
-    public EnrollmentDTO getEnrollmentById(Long id) {
-        return enrollmentRepository.findById(id)
-                .map(enrollmentConverter::toDto)
+    public EnrollmentDTO getEnrollmentById(Long id, Long requesterId, boolean isStudent) {
+        ExamEnrollment enrollment = enrollmentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Iscrizione non trovata con questo ID: " + id));
+
+        if(isStudent && !enrollment.getStudentId().equals(requesterId)) {
+            throw new BusinessException("Lo studente non può visualizzare iscrizioni di altri studenti");
+        }
+
+        return enrollmentConverter.toDto(enrollment);
     }
 
     public void cancelEnrollment(Long id) {

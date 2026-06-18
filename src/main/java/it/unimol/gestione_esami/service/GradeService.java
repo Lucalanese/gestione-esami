@@ -7,6 +7,7 @@ import it.unimol.gestione_esami.entity.Exam;
 import it.unimol.gestione_esami.entity.ExamEnrollment;
 import it.unimol.gestione_esami.entity.ExamGrade;
 import it.unimol.gestione_esami.enums.GradeStatus;
+import it.unimol.gestione_esami.exception.BusinessException;
 import it.unimol.gestione_esami.exception.ResourceNotFoundException;
 import it.unimol.gestione_esami.messaging.ExamEventPublisher;
 import it.unimol.gestione_esami.repository.ExamEnrollmentRepository;
@@ -57,10 +58,15 @@ public class GradeService {
 
     }
 
-    public GradeDTO getGradeById(Long id) {
-        return gradeRepository.findById(id)
-                .map(gradeConverter::toDto)
-                .orElseThrow(() -> new ResourceNotFoundException("La valutazione non esiste con questo ID: " + id));
+    public GradeDTO getGradeById(Long id, Long requesterId, boolean isStudent) {
+        ExamGrade grade = gradeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Voto non trovato con questo ID: " + id));
+
+        if(isStudent && !grade.getExamEnrollment().getStudentId().equals(requesterId)) {
+            throw new BusinessException("Accesso negato: lo studente non è autorizzato a visualizzare questo voto.");
+        }
+
+        return gradeConverter.toDto(grade);
     }
 
     public void deleteGrade(Long id) {
