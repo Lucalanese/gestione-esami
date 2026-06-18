@@ -37,8 +37,11 @@ public class GradeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteGrade(@PathVariable Long id) {
-        gradeService.deleteGrade(id);
+    public ResponseEntity<Void> deleteGrade(@PathVariable Long id, Authentication authentication) {
+        Long requesterId = Long.parseLong(authentication.getName());
+        boolean isStudent = authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_STUDENT"));
+        gradeService.deleteGrade(id,requesterId,isStudent);
         return ResponseEntity.noContent().build();
     }
 

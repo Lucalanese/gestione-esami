@@ -69,7 +69,13 @@ public class GradeService {
         return gradeConverter.toDto(grade);
     }
 
-    public void deleteGrade(Long id) {
+    public void deleteGrade(Long id, Long requesterId, boolean isStudent) {
+        ExamGrade grade = gradeRepository.findById(id)
+                        .orElseThrow(() -> new ResourceNotFoundException("Voto non trovato con questo ID: " + id));
+
+        if(isStudent) {
+            throw new BusinessException("Gli studenti non possono cancellare i voti.");
+        }
         gradeRepository.deleteById(id);
     }
 
