@@ -7,6 +7,7 @@ import it.unimol.gestione_esami.dto.request.UpdateStatusRequest;
 import it.unimol.gestione_esami.entity.Exam;
 import it.unimol.gestione_esami.entity.ExamEnrollment;
 import it.unimol.gestione_esami.enums.EnrollmentStatus;
+import it.unimol.gestione_esami.enums.ExamStatus;
 import it.unimol.gestione_esami.exception.BusinessException;
 import it.unimol.gestione_esami.exception.ResourceNotFoundException;
 import it.unimol.gestione_esami.messaging.ExamEventPublisher;
@@ -47,6 +48,10 @@ public class EnrollmentService {
 
         if(exam.getCurrentEnrollments() >= exam.getMaxStudents()) {
             throw new BusinessException("Numero massimo di iscrizioni raggiunto per questo esame");
+        }
+
+        if(exam.getStatus() == ExamStatus.COMPLETED || exam.getStatus() == ExamStatus.CANCELLED){
+            throw new BusinessException("Non è possibile iscriversi ad un esame chiuso o annullato.");
         }
 
         ExamEnrollment enrollment = new ExamEnrollment();

@@ -1,5 +1,7 @@
 package it.unimol.gestione_esami.dto.request;
 
+import it.unimol.gestione_esami.enums.ExamStatus;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -12,13 +14,14 @@ public class UpdateExamRequest {
     private Long classroomId;
     private Integer maxStudents;
     private LocalDate enrollmentDeadline;
+    private ExamStatus status;
     private String notes;
 
     public UpdateExamRequest() {
     }
 
     public UpdateExamRequest(String name, LocalDate date, LocalTime time, Long courseId, Long professorId,
-                             Long classroomId, Integer maxStudents, LocalDate enrollmentDeadline, String notes) {
+                             Long classroomId, Integer maxStudents, LocalDate enrollmentDeadline, ExamStatus status, String notes) {
         this.name = name;
         this.date = date;
         this.time = time;
@@ -27,6 +30,7 @@ public class UpdateExamRequest {
         this.classroomId = classroomId;
         this.maxStudents = maxStudents;
         this.enrollmentDeadline = enrollmentDeadline;
+        this.status = status;
         this.notes = notes;
     }
 
@@ -92,6 +96,14 @@ public class UpdateExamRequest {
 
     public void setEnrollmentDeadline(LocalDate enrollmentDeadline) {
         this.enrollmentDeadline = enrollmentDeadline;
+    }
+
+    public ExamStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ExamStatus status) {
+        this.status = status;
     }
 
     public String getNotes() {
