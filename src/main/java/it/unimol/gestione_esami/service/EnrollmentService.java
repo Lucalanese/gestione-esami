@@ -105,6 +105,11 @@ public class EnrollmentService {
                 .orElseThrow(() -> new ResourceNotFoundException("Iscrizione non trovata con questo ID: " + enrollmentId));
 
         enrollment.setStatus(request.getStatus());
+
+        if(request.getNotes()!= null) {
+            enrollment.setNotes(request.getNotes());
+        }
+        
         ExamEnrollment saved = enrollmentRepository.save(enrollment);
         return enrollmentConverter.toDto(saved);
 
