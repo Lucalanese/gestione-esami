@@ -16,10 +16,15 @@ public class CreateExamRequest {
     private LocalTime time;
 
     @NotNull(message = "Il corso è obbligatorio")
+    @Min(value = 1, message = "Il corso deve essere valido")
     private Long courseId;
 
     @NotNull(message = "Il prof è obbligatorio")
+    @Min(value = 1, message = "Il prof deve essere valido")
     private Long professorId;
+
+    @NotNull(message = "L'aula è obbligatoria")
+    @Min(value = 1, message = "L'aula deve essere valida")
     private Long classroomId;
 
     @NotNull(message = "il numero massimo di studenti è obbligatorio")
