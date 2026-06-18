@@ -45,6 +45,10 @@ public class EnrollmentService {
             throw new BusinessException("Lo studente è già iscritto a questo esame");
         }
 
+        if(exam.getCurrentEnrollments() >= exam.getMaxStudents()) {
+            throw new BusinessException("Numero massimo di iscrizioni raggiunto per questo esame");
+        }
+
         ExamEnrollment enrollment = new ExamEnrollment();
         enrollment.setExam(exam);
         enrollment.setStudentId(studentId);
