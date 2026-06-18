@@ -58,8 +58,11 @@ public class EnrollmentController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> cancelEnrollment(@PathVariable Long id) {
-        enrollmentService.cancelEnrollment(id);
+    public ResponseEntity<Void> cancelEnrollment(@PathVariable Long id, Authentication authentication) {
+        Long requesterId = Long.parseLong(authentication.getName());
+        boolean isStudent = authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_STUDENT"));
+        enrollmentService.cancelEnrollment(id, requesterId, isStudent);
         return ResponseEntity.noContent().build();
     }
 

@@ -81,7 +81,13 @@ public class EnrollmentService {
         return enrollmentConverter.toDto(enrollment);
     }
 
-    public void cancelEnrollment(Long id) {
+    public void cancelEnrollment(Long id, Long requesterId, boolean isStudent) {
+        ExamEnrollment enrollment = enrollmentRepository.findById(id)
+                        .orElseThrow(() -> new ResourceNotFoundException("Iscrizione non trovata con questo ID: " + id));
+
+        if(isStudent && !enrollment.getStudentId().equals(requesterId)) {
+            throw new BusinessException("Non puoi cancellare l'iscrizione di un altro studente");
+        }
         enrollmentRepository.deleteById(id);
     }
 
