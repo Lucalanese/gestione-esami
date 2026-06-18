@@ -39,8 +39,11 @@ public class EnrollmentController {
     }
 
     @GetMapping("/student/{studentId}")
-    public ResponseEntity<List<EnrollmentDTO>> getStudentsEnrollments(@PathVariable Long studentId) {
-        List<EnrollmentDTO> enrollments = enrollmentService.getStudentsEnrollments(studentId);
+    public ResponseEntity<List<EnrollmentDTO>> getStudentsEnrollments(@PathVariable Long studentId, Authentication authentication) {
+        Long requesterId = Long.parseLong(authentication.getName());
+        boolean isStudent = authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_STUDENT"));
+        List<EnrollmentDTO> enrollments = enrollmentService.getStudentsEnrollments(studentId, requesterId, isStudent);
         return ResponseEntity.ok(enrollments);
     }
 

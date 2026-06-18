@@ -111,12 +111,16 @@ public class EnrollmentService {
                 .collect(Collectors.toList());
     }
 
-    public List<EnrollmentDTO> getStudentsEnrollments(Long studentId) {
+    public List<EnrollmentDTO> getStudentsEnrollments(Long studentId, Long requesterId, boolean isStudent) {
+        if(isStudent && !studentId.equals(requesterId)) {
+            throw new BusinessException("Non puoi visualizzare le  iscrizioni per gli altri studenti");
+        }
+
+
         return enrollmentRepository.findByStudentId(studentId)
                 .stream()
                 .map(enrollmentConverter::toDto)
                 .collect(Collectors.toList());
-
     }
 
 
