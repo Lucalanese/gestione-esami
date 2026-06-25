@@ -72,7 +72,6 @@ public class EnrollmentService {
                 .stream()
                 .map(enrollmentConverter::toDto)
                 .collect(Collectors.toList());
-
     }
 
     public EnrollmentDTO getEnrollmentById(Long id, Long requesterId, boolean isStudent) {
