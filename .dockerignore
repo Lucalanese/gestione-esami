@@ -1,0 +1,7 @@
+target/
+.git/
+.gitignore
+*.log
+.mwn/
+mwnw
+mwnw.cmd
