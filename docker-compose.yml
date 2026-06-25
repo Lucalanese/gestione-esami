@@ -1,0 +1,38 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: esami_db
+      POSTGRES_USER: esami_user
+      POSTGRES_PASSWORD: esami_pass
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  gestione-esami:
+    build: .
+    ports:
+      - "23110:23110"
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: esami_db
+      DB_USER: esami_user
+      DB_PASSWORD: esami_pass
+      RABBITMQ_HOST: rabbitmq
+      RABBITMQ_PORT: 5672
+      RABBITMQ_USER: guest
+      RABBITMQ_PASSWORD: guest
+    depends_on:
+      - postgres
+      - rabbitmq
+
+volumes:
+  postgres-data:
