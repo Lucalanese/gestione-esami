@@ -25,5 +25,8 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: Build and run static analysis
+      - name: Run tests
+        run: mvn test
+
+      - name: Run static analysis
         run: mvn verify -DskipTests
