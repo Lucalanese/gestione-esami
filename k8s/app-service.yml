@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gestione-esami
+spec:
+  selector:
+    app: gestione-esami
+  type: NodePort
+  ports:
+    - port: 23110
+      targetPort: 23110
+      nodePort: 30110
