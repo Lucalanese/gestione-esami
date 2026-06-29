@@ -1,7 +1,8 @@
 name: Maven Automatic Releases
 on:
   push:
-    branches: [ main ]
+    tags:
+      - 'v*'
 
 jobs:
   release:
@@ -20,27 +21,14 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
-      - name: Check commit message and extract version
-        id: check
-        run: |
-          COMMIT_MSG=$(git log -1 --pretty=%B | head -n 1)
-          if [[ $COMMIT_MSG =~ ^(Release)\ v([0-9]+\.[0-9]+\.[0-9]+) ]]; then
-            echo "should_release=true" >> $GITHUB_OUTPUT
-            echo "version=${BASH_REMATCH[2]}" >> $GITHUB_OUTPUT
-          else
-            echo "should_release=false" >> $GITHUB_OUTPUT
-          fi
-
       - name: Build with Maven
-        if: steps.check.outputs.should_release == 'true'
         run: mvn -B package -DskipTests --file pom.xml
 
       - name: Create Release
-        if: steps.check.outputs.should_release == 'true'
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: v${{ steps.check.outputs.version }}
-          name: Release v${{ steps.check.outputs.version }}
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
           files: target/*.jar
         env:
           GITHUB_TOKEN: ${{ github.token }}
