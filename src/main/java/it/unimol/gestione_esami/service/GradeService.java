@@ -62,7 +62,7 @@ public class GradeService {
         ExamGrade grade = gradeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Voto non trovato con questo ID: " + id));
 
-        if(isStudent && !grade.getExamEnrollment().getStudentId().equals(requesterId)) {
+        if (isStudent && !grade.getExamEnrollment().getStudentId().equals(requesterId)) {
             throw new BusinessException("Accesso negato: lo studente non è autorizzato a visualizzare questo voto.");
         }
 
@@ -70,10 +70,10 @@ public class GradeService {
     }
 
     public void deleteGrade(Long id, Long requesterId, boolean isStudent) {
-        ExamGrade grade = gradeRepository.findById(id)
-                        .orElseThrow(() -> new ResourceNotFoundException("Voto non trovato con questo ID: " + id));
+        gradeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Voto non trovato con questo ID: " + id));
 
-        if(isStudent) {
+        if (isStudent) {
             throw new BusinessException("Gli studenti non possono cancellare i voti.");
         }
         gradeRepository.deleteById(id);
