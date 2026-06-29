@@ -96,4 +96,20 @@ class GradeServiceTest {
         assertThrows(ResourceNotFoundException.class, () -> gradeService.recordGrade(1L, request));
         verify(gradeRepository, never()).save(any());
     }
+
+    @Test
+    void recordGrade_whenHonorsWithoutGrade30_throwsBusinessException() {
+
+        ExamEnrollment enrollment = new ExamEnrollment();
+        when(enrollmentRepository.findById(1L)).thenReturn(Optional.of(enrollment));
+
+        CreateGradeRequest request = new CreateGradeRequest();
+        request.setEnrollmentId(1L);
+        request.setGrade(25);
+        request.setHonors(true);
+
+        assertThrows(BusinessException.class,
+                () -> gradeService.recordGrade(1L, request));
+        verify(gradeRepository, never()).save(any());
+    }
 }
