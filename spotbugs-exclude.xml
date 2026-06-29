@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+    <Match>
+        <Package name="~it\.unimol\.gestione_esami\.controller.*"/>
+    </Match>
+    <Match>
+        <Package name="~it\.unimol\.gestione_esami\.entity.*"/>
+    </Match>
+    <Match>
+        <Package name="~it\.unimol\.gestione_esami\.config.*"/>
+    </Match>
+    <Match>
+        <Package name="~it\.unimol\.gestione_esami\.exception.*"/>
+    </Match>
+    <Match>
+        <Package name="~it\.unimol\.gestione_esami\.messaging.*"/>
+    </Match>
+    <Match>
+        <Class name="~.*Test"/>
+    </Match>
+</FindBugsFilter>
