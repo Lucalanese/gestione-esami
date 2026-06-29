@@ -43,6 +43,9 @@ public class GradeService {
         ExamEnrollment enrollment = enrollmentRepository.findById(request.getEnrollmentId())
                 .orElseThrow(() -> new ResourceNotFoundException("Iscrizione non trovata per questo esame e studente"));
 
+        if(Boolean.TRUE.equals(request.getHonors()) && request.getGrade() != 30) {
+            throw new BusinessException("Lode assegnabile solo con voto 30");
+        }
         ExamGrade grade = new ExamGrade();
         grade.setExamEnrollment(enrollment);
         grade.setGrade(request.getGrade());

@@ -19,7 +19,7 @@ class ExamConverterTest {
     void toDto_mapsAllFieldsCorrectly() {
 
         Exam exam = new Exam(
-                1L, "Matematica", LocalDate.of(2025, 6, 15), LocalTime.of(9, 0),
+                1L, "Matematica", LocalDate.of(2026, 6, 15), LocalTime.of(9, 0),
                 1L, "Corso di Matematica", 2L, "Prof. Rossi",
                 3L, "Aula 1", 30, LocalDate.now().plusDays(10),
                 ExamStatus.SCHEDULED, "Nessuna nota"
@@ -29,7 +29,7 @@ class ExamConverterTest {
 
         assertEquals(1L,dto.getId());
         assertEquals("Matematica",dto.getName());
-        assertEquals(LocalDate.of(2025, 6, 15),dto.getDate());
+        assertEquals(LocalDate.of(2026, 6, 15),dto.getDate());
         assertEquals(LocalTime.of(9, 0),dto.getTime());
         assertEquals(1L,dto.getCourseId());
         assertEquals("Corso di Matematica",dto.getCourseName());
