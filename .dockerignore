@@ -3,5 +3,5 @@ target/
 .gitignore
 *.log
 .mwn/
-mwnw
-mwnw.cmd
+mvnw
+mvnw.cmd
