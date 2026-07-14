@@ -39,3 +39,9 @@
 - docker-compose con PostgreSQL e RabbitMQ
 - Manifest Kubernetes
 - 19 test unitari
+
+## v1.0.5 Fix Dockerfile
+
+### Corretto 
+- Typo eclipse-temutin in Dockerfile → eclipse-temurin
+- Verificato con docker build completato con successo
