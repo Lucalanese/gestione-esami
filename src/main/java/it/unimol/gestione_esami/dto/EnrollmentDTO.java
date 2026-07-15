@@ -1,11 +1,11 @@
 package it.unimol.gestione_esami.dto;
 
 import it.unimol.gestione_esami.enums.EnrollmentStatus;
-import it.unimol.gestione_esami.enums.ExamStatus;
+
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
+
 
 public class EnrollmentDTO {
     private Long id;
