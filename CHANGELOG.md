@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.0.6 Fix Import
+
+### Corretto
+- Rimossi import inutili in EnrollmentDTO segnalati da PMD
+- PMD ora non segnala più nessuna violazione
+
+## v1.0.5 Fix Dockerfile
+
+### Corretto
+- Typo eclipse-temutin in Dockerfile → eclipse-temurin
+- Verificato con docker build completato con successo
+
 ## v1.0.4 - Sicurezza Kubernetes
 
 ### Aggiunto
@@ -40,8 +52,3 @@
 - Manifest Kubernetes
 - 19 test unitari
 
-## v1.0.5 Fix Dockerfile
-
-### Corretto 
-- Typo eclipse-temutin in Dockerfile → eclipse-temurin
-- Verificato con docker build completato con successo
